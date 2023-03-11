@@ -211,7 +211,7 @@ on_install() {
   echo "" >> "$MODPATH_LIST"
   local MBNFILE
   for MBNFILE in $MBN_FILES; do
-    grep -qF "$MBNFILE" "$MODPATH_LIST" || [ -f "$MBNDIR/$MBNFILE" ] && echo "$MBNFILE" >> "$MODPATH_LIST"
+    grep -qF "$MBNFILE" "$MODPATH_LIST" || ([ -f "$MBNDIR/$MBNFILE" ] && echo "$MBNFILE" >> "$MODPATH_LIST")
   done
   
   rm -rf /data/vendor/modem*
