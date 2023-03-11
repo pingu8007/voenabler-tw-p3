@@ -124,13 +124,12 @@ REPLACE="
 print_modname() {
   ui_print "+----------------------------+"
   ui_print "|                            |"
-  ui_print "|   TH VoLTE/VoWiFi Enabler  |"
-  ui_print "|    (AIS / DTAC / TRUE-H)   |"
+  ui_print "|    VoLTE/VoWiFi Enabler    |"
   ui_print "|            for             |"
   ui_print "|    Pixel 3/3a/4 series     |"
   ui_print "|                            |"
-  ui_print "|       v1.1-20200922        |"
-  ui_print "|       by thongtech         |"
+  ui_print "|       v1.0-20230311        |"
+  ui_print "|          by PinGu          |"
   ui_print "|     based on nooriro's     |"
   ui_print "|                            |"
   ui_print "+----------------------------+"
@@ -182,6 +181,11 @@ on_install() {
       mcfg_sw/generic/SEA/AIS/Commercial/Thailand/mcfg_sw.mbn
       mcfg_sw/generic/SEA/DTAC/Commercial/VoLTE/mcfg_sw.mbn
       mcfg_sw/generic/SEA/Truemove/Commercial/VoLTE/mcfg_sw.mbn
+      mcfg_sw/generic/SEA/ChunghwaTel/Commercial/TW/mcfg_sw.mbn
+      mcfg_sw/generic/SEA/FarEastOne/Commercial/mcfg_sw.mbn
+      mcfg_sw/generic/SEA/TM/Commercial/mcfg_sw.mbn
+      mcfg_sw/generic/SEA/TStar/Commercial/TW/mcfg_sw.mbn
+      mcfg_sw/generic/SEA/APT/Commercial/mcfg_sw.mbn
     "
   # fi
   
@@ -193,7 +197,7 @@ on_install() {
     abort "! This module is only for Pixel 3 and later"
   fi
   
-  ui_print "- Installing Thai carrier configs"
+  ui_print "- Installing carrier configs"
   unzip -o "$ZIPFILE" "mbn/${MBNTYPE}/*" -d "$MODPATH" >&2
   mkdir -p "${MODPATH}/system${MBNDIR}"
   mv "${MODPATH}/mbn/${MBNTYPE}/"* "${MODPATH}/system${MBNDIR}/"
@@ -207,7 +211,7 @@ on_install() {
   echo "" >> "$MODPATH_LIST"
   local MBNFILE
   for MBNFILE in $MBN_FILES; do
-    grep -qF "$MBNFILE" "$MODPATH_LIST" || echo "$MBNFILE" >> "$MODPATH_LIST"
+    grep -qF "$MBNFILE" "$MODPATH_LIST" || [ -f "$MBNDIR/$MBNFILE" ] && echo "$MBNFILE" >> "$MODPATH_LIST"
   done
   
   rm -rf /data/vendor/modem*
